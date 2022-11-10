@@ -2,7 +2,9 @@ EXEC = main
 CFLAGS =   -ggdb3
 
 
-# taper dans le terminal ./main fichier_a_ouvir
+# taper dans le terminal ./main
+#taper make vclean pour supprimer les fichiers .o
+
 all: $(EXEC)
 
 

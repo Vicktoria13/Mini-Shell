@@ -3,6 +3,6 @@
 
 
 void shell();
-
+void shell_avec_pipe();
 #endif
 
