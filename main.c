@@ -33,6 +33,8 @@ int main () {
    */
 
     shell();
+    printf("Fin du programme\n");
+    return  EXIT_SUCCESS;
    
   
 }
