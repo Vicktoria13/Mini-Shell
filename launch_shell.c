@@ -90,16 +90,22 @@ void shell(){
                 { // on est dans le processus enfant
 
                     // on remplit le tableau vecteur d'arguments :
-                    char *tab[nb_mots + 1];
+                    data[nb_mots]=NULL; // on met le dernier argument a NULL pour execvp
+                
+                    /*
+                    char *tab[nb_mots + 1]; // on alloue un tableau de pointeurs de taille nb_mots + 1
 
                     for (int k = 0; k < nb_mots; k++)
                     {
-                        tab[k] = data[k];
+                        tab[k] = data[k]; // on copie les adresses des mots de data dans tab
                     }
                     tab[nb_mots] = NULL;
                     
 
                     int status = execvp(tab[0], tab);
+
+                    */
+                    int status = execvp(data[0], data);
 
                     if (status == -1)
                     { // si un problème à lieu à l'exécution
@@ -117,6 +123,8 @@ void shell(){
 }
 
 }
+
+
 
 
 
