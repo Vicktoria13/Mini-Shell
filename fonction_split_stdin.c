@@ -12,16 +12,14 @@ void affiche(char* tab[], int nb_mots){
     taille est le nombre d'éléments à afficher
     */
     
-    printf("Entree affiche du tableau 2D : il y a %d mots a affiher \n",nb_mots);
+    printf("Entree affiche du tableau 2D : il y a %d cases a affiher \n",nb_mots);
     for (int i=0; i<nb_mots; i++){
-        //printf("%s\n", tab[i]); ou equivalent
-        if (*tab==NULL){
-            printf("PIPE\n");
-            printf("NULL\n");
+        if (tab[i]==NULL){
+            printf("res[%d] = NULL\n",i);
         }
-        printf("%s\n", *tab);
-        *tab++;
-        
+        else{
+            printf("res[%d] = %s\n",i,tab[i]);
+        }
     }
     
     
@@ -78,7 +76,6 @@ char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe){ 
 
     int pos_current_tableau_second_split=0;
     int nb_cases_finales_remplies=0;
-
     if (nb_mots_premier_split > 1){
         // il y a des pipes
         *flag_pipe=1;
@@ -90,15 +87,16 @@ char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe){ 
 
             while (strtoken != NULL)
             {
-
                 strcpy(tableau_second_split[pos_current_tableau_second_split], strtoken);
                 strtoken = strtok(NULL, " "); // Accès au token suivant
                 pos_current_tableau_second_split++;
                 nb_cases_finales_remplies++;
             }
+
             *(tableau_second_split + pos_current_tableau_second_split) = NULL; // on met un NULL à la place du pipe
 
-            if (i == 0)
+            if (i == 0) //dans le cas de fin de traitement de la 1ere case, cest la que se situe le 1er pipe donc le 1er NULL
+           
             {
                 *position_du_null = pos_current_tableau_second_split; // on met à jour la position du NULL
             }
@@ -112,13 +110,12 @@ char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe){ 
         // il n'y a pas de pipe
         *flag_pipe=0;
         split(tableau_second_split,buffer," ", &nb_cases_finales_remplies);
-        *position_du_null=nb_cases_finales_remplies;
+        tableau_second_split[nb_cases_finales_remplies] = NULL; // on met le dernier argument a NULL pour execvp
+        nb_cases_finales_remplies++;
+        
     }
-
     *nb_mots=nb_cases_finales_remplies; // on met à jour le nombre de mots
-
+    
     free(tableau_premier_split);
     return tableau_second_split;
-
-
 }
