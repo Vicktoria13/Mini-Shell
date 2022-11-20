@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NB_MOTS 20
-#define TAILLE_MOT 20 // On suppose que les mots ne dépassent pas 20 caractères
+#define NB_MOTS 40
+#define TAILLE_MOT 40 // On suppose que les mots ne dépassent pas 20 caractères
 
 
 void affiche(char* tab[], int nb_mots){
@@ -21,7 +21,6 @@ void affiche(char* tab[], int nb_mots){
             printf("res[%d] = %s\n",i,tab[i]);
         }
     }
-    
     
 }
 
@@ -58,7 +57,10 @@ char** allocation_tableau_char(int nb_mots,int taille_mot){
 
 }
 
-char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe){ //Split la chaine de caractère du buffer qui sont séparé par character_separator et met chaque mot dans un tableau
+
+
+// fonction a lancer pour
+char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe,char*fisrt_separator){ //Split la chaine de caractère du buffer qui sont séparé par character_separator et met chaque mot dans un tableau
     // en entrée : un buffer, un pointeur sur le nombre de mots, un pointeur sur la position du NULL
     // en sortie : un tableau de pointeurs de pointeurs de caractères contentant les mots du buffer séparés par des ESPACES : les pipes sont remplacées par des NULL
     // et la position du NULL est mise à jour pour l'execvp.
@@ -67,11 +69,14 @@ char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe){ 
     // si il n'y a pas de pipe, on renvoie le tableau de mots du buffer
     // il faut alors le specifier via un flag pour eviter de lancer un 2 fork dans le main
 
+        // si il y a un pipe, alors le tableau est rendu comme décrit et le flag pipe est mis a 1 pour indiquer qu'il y a un pipe, 0 sinon
+
+
     char** tableau_premier_split = allocation_tableau_char(NB_MOTS,TAILLE_MOT); // on alloue un tableau de pointeurs de pointeurs de caractères
     char** tableau_second_split = allocation_tableau_char(NB_MOTS,TAILLE_MOT);
     int nb_mots_premier_split=0;
 
-    split(tableau_premier_split,buffer,"|", &nb_mots_premier_split); // on split le buffer selon les pipes
+    split(tableau_premier_split,buffer,fisrt_separator, &nb_mots_premier_split); // on split le buffer selon les pipes
 
 
     int pos_current_tableau_second_split=0;
@@ -118,4 +123,16 @@ char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe){ 
     
     free(tableau_premier_split);
     return tableau_second_split;
+}
+
+
+char** split_simple_espace(char* buffer, int* nb_mots){ 
+
+    char** tableau_premier_split = allocation_tableau_char(NB_MOTS,TAILLE_MOT); // on alloue un tableau de pointeurs de pointeurs de caractères
+    int nb_mots_premier_split=0;
+
+    split(tableau_premier_split,buffer," ", &nb_mots_premier_split); // on split selon les espaces
+    *nb_mots=nb_mots_premier_split;
+
+    return tableau_premier_split;
 }

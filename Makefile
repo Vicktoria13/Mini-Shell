@@ -15,4 +15,4 @@ clean:
 	rm -f *.o *~ *.backup
 
 vclean:	clean
-	rm -f $(EXEC)
+	rm -f $(EXEC) text.txt
