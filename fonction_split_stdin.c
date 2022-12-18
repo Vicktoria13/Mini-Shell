@@ -10,6 +10,8 @@ void affiche(char* tab[], int nb_mots){
     /*
     prends un tableau double entrée et affiche les éléments
     taille est le nombre d'éléments à afficher
+
+    si l'élément est NULL, on affiche NULL et on continue
     */
     
     printf("Entree affiche du tableau 2D : il y a %d cases a affiher \n",nb_mots);
@@ -61,16 +63,12 @@ char** allocation_tableau_char(int nb_mots,int taille_mot){
 
 // fonction a lancer pour
 char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe,char*fisrt_separator){ //Split la chaine de caractère du buffer qui sont séparé par character_separator et met chaque mot dans un tableau
+    
     // en entrée : un buffer, un pointeur sur le nombre de mots, un pointeur sur la position du NULL
     // en sortie : un tableau de pointeurs de pointeurs de caractères contentant les mots du buffer séparés par des ESPACES : les pipes sont remplacées par des NULL
     // et la position du NULL est mise à jour pour l'execvp.
     
-    
-    // si il n'y a pas de pipe, on renvoie le tableau de mots du buffer
-    // il faut alors le specifier via un flag pour eviter de lancer un 2 fork dans le main
-
-        // si il y a un pipe, alors le tableau est rendu comme décrit et le flag pipe est mis a 1 pour indiquer qu'il y a un pipe, 0 sinon
-
+   // La fonction opère deux splits : cependant si le premier split
 
     char** tableau_premier_split = allocation_tableau_char(NB_MOTS,TAILLE_MOT); // on alloue un tableau de pointeurs de pointeurs de caractères
     char** tableau_second_split = allocation_tableau_char(NB_MOTS,TAILLE_MOT);
@@ -81,6 +79,7 @@ char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe,ch
 
     int pos_current_tableau_second_split=0;
     int nb_cases_finales_remplies=0;
+    
     if (nb_mots_premier_split > 1){
         // il y a des pipes
         *flag_pipe=1;
@@ -126,13 +125,3 @@ char** pipito(char* buffer, int* nb_mots,int* position_du_null, int*flag_pipe,ch
 }
 
 
-char** split_simple_espace(char* buffer, int* nb_mots){ 
-
-    char** tableau_premier_split = allocation_tableau_char(NB_MOTS,TAILLE_MOT); // on alloue un tableau de pointeurs de pointeurs de caractères
-    int nb_mots_premier_split=0;
-
-    split(tableau_premier_split,buffer," ", &nb_mots_premier_split); // on split selon les espaces
-    *nb_mots=nb_mots_premier_split;
-
-    return tableau_premier_split;
-}

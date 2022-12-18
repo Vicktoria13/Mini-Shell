@@ -13,43 +13,23 @@
 
 // git add . && git commit -m "commit" && git push 
 
+/*
+@ version 1.0
+@ Auteur : Victoria Nguyen Et Matthieu sysouvanh
+@ Date : 10/12/2022
+@ Description : Programme qui permet de lancer un shell dans un terminal
+@ Paramètres : aucun
+@ Valeur de retour : 0 si le programme s'est bien déroulé, 1 sinon
+*/
 
 int main () {
+    /*
+    @ Fonction principale du programme
+    @ Paramètres : aucuN
+    */
 
     shell_test_avec_pipe();
     printf("Fin du programme\n");
     return  EXIT_SUCCESS;
-
-/*
-    int nb_mots=0;
-    int pipe_position=0;
-
-    char *buffer = malloc(NB_MOTS * sizeof(char));
-    char **data = malloc(sizeof(char *) * NB_MOTS);
-
-    if (data == NULL)
-    {
-        printf("Erreur d'allocation mémoire\n");
-        exit(1);
-    }
-
-    for (int i = 0; i < NB_MOTS; i++)
-    {
-        data[i] = malloc(sizeof(char) * TAILLE_MOT);
-    }
-
-    fgets( buffer, NB_MOTS*sizeof(char), stdin ); // on recupere le STDIN // attends que l'utilisateur tape qqch
-    buffer[strlen(buffer)-1]='\0';
-
-
-    split(data,buffer,"|", &nb_mots);
-    //A ce stade on a separer les commandes par pipe : chaque case du tab contient les commandes situés avant et après le pipe
-    affiche(data,nb_mots);
-
-    // on va resplite chaque data selon le " ". On alloue alors 
-    */
-
-   
-
 
 }

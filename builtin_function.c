@@ -5,6 +5,8 @@
 
 
 void builtin_pwd(int* builtin){
+    
+
     char directory[200];
     char* status = getcwd(directory,sizeof(directory));
     printf("%s\n", directory);

@@ -1,0 +1,5 @@
+\#\+Bienvenue
+
+\#principe de fonctionnement pour les pipes \+: On split ce qui est lu et écris dans le buffer selon le caractère \char`\"{} \char`\"{}. Sauf que dès que l\textquotesingle{}on voit le caractère \char`\"{}$\vert$\char`\"{} , alors on crée un 2e tableau. Attention les 2 tableaux doivent se finir par NULL.
+
+Ensuite, dans 2 fork separés, on créera un appel exec pour chacun de ses 2 tableau, avec la sortie de l\textquotesingle{}un dirigé vers l\textquotesingle{}autre via le dup2. 
